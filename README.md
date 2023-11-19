@@ -1,19 +1,14 @@
 # MLOps template
 
-_A logical, reasonably standardized, but flexible project structure for MLOps._  
-* This template is presented in my tutorial : [Structuring Your Machine Learning Project with MLOps in Mind]().
-* It is based on the [Cookiecutter Data Science](https://github.com/drivendata/cookiecutter-data-science) template.
-* It is updated to meet the MLOps workflow described in my tutorial: [here](https://towardsdatascience.com/a-beginner-friendly-introduction-to-mlops-95282f25325c#aabc).
-* You can find the project in: [Project homepage](https://github.com/Chim-SO/mlops-template/).
+A logical, reasonably standardized, but flexible project structure for MLOps.
 
+## Project Organization
 
-### Project Organization
-
-```
+```text
 mlops_template/
 ├── LICENSE     
 ├── README.md                  
-├── Makefile                     # Makefile with commands like `make data` or `make train`                   
+├── Makefile                     # Makefile with commands like `make data` or `make train`
 ├── configs                      # Config files (models and training hyperparameters)
 │   └── model1.yaml              
 │
@@ -59,9 +54,3 @@ mlops_template/
         ├── evaluation.py        
         └── exploration.py       
 ```
-
-
---------
-<p><small>Project based on the <a target="_blank" href="https://github.com/Chim-SO/mlops-template">Github MLOps project template</a>
-that is originally based on <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. 
-#cookiecuttermlops #cookiecutterdatascience</small></p>
