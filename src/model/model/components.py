@@ -22,12 +22,17 @@ class Environment(ABC):
     Abstract base class for environments.
     """
 
-    pass
+    @abstractmethod
+    def update(self, state: State, action: Action) -> State:
+        """
+        Updates the environment based on the current state and action.
+        """
+        raise NotImplementedError
 
 
-class Transition(ABC):
+class Policy(ABC):
     """
-    Abstract base class for transitions.
+    Abstract base class for policies.
     """
 
     pass

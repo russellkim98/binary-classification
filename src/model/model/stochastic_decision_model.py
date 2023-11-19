@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
-from src.models.
 
-
+from src.model.model.components import Action, Environment, Objective, Policy, State
 
 
 class StochasticDecisionModel(ABC):
