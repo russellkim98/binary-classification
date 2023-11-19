@@ -6,12 +6,7 @@ authors = ["Russell Kim <russellkim98@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
-plotly = "^5.18.0"
-scipy = "^1.11.4"
-jupyterlab = "^4.0.9"
-ipdb = "^0.13.13"
-scikit-learn = "^1.3.2"
+python = "^3.8"
 
 
 [build-system]
