@@ -1,3 +1,6 @@
+import os
+
+print(dir())
 import typing as T
 
 import numpy as np
