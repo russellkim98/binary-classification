@@ -1,7 +1,6 @@
 import typing as T
 
-import scipy.stats as stats
-from data_generator import DataGenerator
+from src.data.data_generator import DiscreteSampleGenerator
 
 
 class DiscreteSampleGenerator(DataGenerator):
