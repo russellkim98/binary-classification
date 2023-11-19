@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from src.data.data_generator.discrete.discrete_generators import (
+from stochastic_decision_modeling.data.data_generator.discrete.discrete_generators import (
     BernoulliSampleGenerator,
     BinomialSampleGenerator,
     GeometricSampleGenerator,

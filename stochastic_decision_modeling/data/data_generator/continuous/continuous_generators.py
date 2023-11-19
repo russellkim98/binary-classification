@@ -1,4 +1,6 @@
-from src.data.data_generator.generator import ContinuousSampleGenerator
+from stochastic_decision_modeling.data.data_generator.generator import (
+    ContinuousSampleGenerator,
+)
 
 # Implementations of ContinuousSampleGenerator for the 5 most commonly used continuous distributions
 

@@ -6,14 +6,14 @@ import typing as T
 import numpy as np
 import pandas as pd
 
-from src.data.data_generator.continuous.continuous_generators import (
+from stochastic_decision_modeling.data.data_generator.continuous.continuous_generators import (
     BetaSampleGenerator,
     ExponentialSampleGenerator,
     GammaSampleGenerator,
     NormalSampleGenerator,
     UniformSampleGenerator,
 )
-from src.data.data_generator.generator import DataGenerator
+from stochastic_decision_modeling.data.data_generator.generator import DataGenerator
 
 rng = np.random.default_rng(seed=0)
 

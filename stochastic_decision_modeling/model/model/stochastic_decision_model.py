@@ -1,7 +1,12 @@
 import typing as T
 from abc import ABC, abstractmethod
 
-from src.model.model.components import Environment, Objective, Policy, State
+from stochastic_decision_modeling.model.model.components import (
+    Environment,
+    Objective,
+    Policy,
+    State,
+)
 
 
 class StochasticDecisionModel(ABC):
