@@ -1,5 +1,3 @@
-import typing as T
-
 from src.data.data_generator.generator import DiscreteSampleGenerator
 
 # Concrete implementations of DiscreteSampleGenerator for the 5 most commonly used discrete distributions
