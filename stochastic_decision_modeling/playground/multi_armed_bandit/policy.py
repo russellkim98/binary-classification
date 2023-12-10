@@ -1,20 +1,13 @@
-import abc
-
-import numpy as np
 import tensorflow as tf
-from tf_agents.agents import tf_agent
-from tf_agents.drivers import driver
-from tf_agents.environments import py_environment, tf_environment, tf_py_environment
-from tf_agents.policies import tf_policy
-from tf_agents.specs import array_spec, tensor_spec
+from tf_agents.policies import TFPolicy
+from tf_agents.specs import tensor_spec
 from tf_agents.trajectories import policy_step
 from tf_agents.trajectories import time_step as ts
-from tf_agents.trajectories import trajectory
 
 nest = tf.nest
 
 
-class TwoWaySignPolicy(tf_policy.TFPolicy):
+class TwoWaySignPolicy(TFPolicy):
     def __init__(self, situation):
         observation_spec = tensor_spec.BoundedTensorSpec(
             shape=(1,), dtype=tf.int32, minimum=-2, maximum=2
