@@ -1,5 +1,6 @@
 import tensorflow as tf  # pylint: disable=g-explicit-tensorflow-version-import
 
+import plotly.graph_objects as go
 import pandas as pd
 import tensorflow as tf
 from pprint import pprint
@@ -32,9 +33,17 @@ def train_step(
     step: int,
 ):
     driver.run()
-    loss_info = agent.train(replay_buffer.as_dataset(single_deterministic_pass=True))
+    loss_info = agent.train(replay_buffer.gather_all())
     replay_buffer.clear()
-    return reward.result(), loss_info.loss
+    results = {
+        "action": driver.policy.action(driver.env.current_time_step()).action.numpy()[
+            0
+        ],
+        "reward": reward.result().numpy(),
+        "loss": loss_info.loss.numpy(),
+        "step": step,
+    }
+    return results
 
 
 def main(params):
@@ -71,29 +80,24 @@ def main(params):
 
     metrics = []
     for step in range(dict.get(params, "num_iterations", 1)):
-        regret_step, loss_step = train_step(
+        result_step = train_step(
             driver=driver,
             agent=agent,
             replay_buffer=replay_buffer,
             reward=reward,
             step=step,
         )
-        metric_row = [
-            {"step": step, "metric": "regret", "value": regret_step.numpy()},
-            {"step": step, "metric": "loss", "value": loss_step.numpy()},
-        ]
-        pprint(metric_row)
-        metrics.extend(metric_row)
+        print(f"Step {step}")
+        pprint(result_step)
+        metrics.append(result_step)
     metric_df = pd.DataFrame.from_records(metrics)
-    fig = px.line(metric_df, x="step", y="value", facet_col="metric")
+    fig = px.line(metric_df, x="step", y="value")
     fig.update_yaxes(matches=None)
     fig.show()
 
 
 def get_params():
-    reward_arms = [
-        [float(x) for x in y] for y in [[-3, 0, 1, -2], [1, -2, 3, 0], [0, 0, 1, 1]]
-    ]
+    reward_arms = [[float(x) for x in range(-10, 11)]]
     batch_size = 1
     observation_spec = tensor_spec.TensorSpec([4], tf.float32)
     time_step_spec = ts.time_step_spec(observation_spec)
