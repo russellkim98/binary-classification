@@ -12,7 +12,9 @@ class LinearNormalReward(object):
 
     def __call__(self, x):
         mu = np.dot(1, self.mu)
-        return np.random.normal(mu, self.sigma)
+        val = np.random.normal(mu, self.sigma)
+        print(f"mu: {mu}, sigma: {self.sigma}, x: {x}, val: {val}")
+        return val
 
 
 def context_sampling_fn(batch_size, size):
@@ -25,9 +27,9 @@ def context_sampling_fn(batch_size, size):
 
 
 class StationaryStochastic(sspe.StationaryStochasticPyEnvironment):
-    def __init__(self, reward_arms: T.List[T.List[float]], batch_size: int):
+    def __init__(self, reward_arms: T.List[float], batch_size: int):
         super().__init__(
-            context_sampling_fn=context_sampling_fn(batch_size, len(reward_arms[0])),
+            context_sampling_fn=context_sampling_fn(batch_size, 1),
             reward_fns=[LinearNormalReward(arm, 1) for arm in reward_arms],
             batch_size=batch_size,
         )

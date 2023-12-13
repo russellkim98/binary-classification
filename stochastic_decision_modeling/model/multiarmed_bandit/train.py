@@ -1,5 +1,5 @@
 import tensorflow as tf  # pylint: disable=g-explicit-tensorflow-version-import
-
+from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import pandas as pd
 import tensorflow as tf
@@ -46,7 +46,7 @@ def train_step(
     return results
 
 
-def main(params):
+def run(params):
     environment = tf_py_environment.TFPyEnvironment(
         StationaryStochastic(
             reward_arms=dict.get(params, "reward_arms", []),
@@ -87,24 +87,43 @@ def main(params):
             reward=reward,
             step=step,
         )
-        print(f"Step {step}")
-        pprint(result_step)
+        if step % 10 == 0:
+            print(f"Step {step}")
         metrics.append(result_step)
     metric_df = pd.DataFrame.from_records(metrics)
-    fig = px.line(metric_df, x="step", y="value")
+    return metric_df
+
+
+def main(params):
+    results = run(params)
+    # Make plots
+    figs = {
+        "action": px.scatter(results, x="step", y="action", title="action"),
+        "loss": px.scatter(results, x="step", y="loss", title="loss"),
+        "reward": px.scatter(results, x="step", y="reward", title="reward"),
+        "histogram": px.histogram(
+            results, x="reward", color="action", title="histogram"
+        ),
+    }
+    figs["histogram"].show()
+    fig = make_subplots(rows=2, cols=2)
+    fig.add_trace(figs["action"].data[0], row=1, col=1)
+    fig.add_trace(figs["loss"].data[0], row=1, col=2)
+    fig.add_trace(figs["reward"].data[0], row=2, col=1)
+
     fig.update_yaxes(matches=None)
     fig.show()
 
 
 def get_params():
-    reward_arms = [[float(x) for x in range(-10, 11)]]
+    reward_arms = [float(x * 5) for x in range(5)]
     batch_size = 1
-    observation_spec = tensor_spec.TensorSpec([4], tf.float32)
+    observation_spec = tensor_spec.TensorSpec([1], tf.float32)
     time_step_spec = ts.time_step_spec(observation_spec)
     action_spec = tensor_spec.BoundedTensorSpec(
         dtype=tf.int32, shape=(), minimum=0, maximum=2
     )
-    num_iterations = 90
+    num_iterations = 10
     steps_per_loop = 1
 
     # Dict of params
