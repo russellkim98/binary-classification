@@ -1,5 +1,6 @@
 import tensorflow as tf
 from tf_agents.bandits.metrics import tf_metrics
+import typing as T
 
 
 def compute_optimal_reward(rewards):
@@ -15,5 +16,5 @@ def compute_optimal_reward(rewards):
 
 
 class RegretMetric(tf_metrics.RegretMetric):
-    def __init__(self, rewards):
+    def __init__(self, rewards: T.List[T.List[float]]):
         super().__init__(compute_optimal_reward(rewards))
