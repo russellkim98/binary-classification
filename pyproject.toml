@@ -12,6 +12,7 @@ tf-agents = "^0.18.0"
 jupyterlab = "^4.0.9"
 tensorflow-datasets = "4.0"
 plotly = "^5.18.0"
+tqdm = "^4.66.1"
 
 
 [build-system]
