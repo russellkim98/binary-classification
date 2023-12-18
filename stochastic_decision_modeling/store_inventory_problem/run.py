@@ -19,14 +19,6 @@ class StoreInventoryEnvironment(PyEnvironment):
     def action_spec(self):
         pass
 
-    def _step(self, action):
-        pass
-
-    def _reset(self):
-        pass
-
-    pass
-
 
 def main():
     pass
